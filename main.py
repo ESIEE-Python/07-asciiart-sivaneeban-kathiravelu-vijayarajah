@@ -1,47 +1,70 @@
-#### Imports et définition des variables globales
-
-
-#### Fonctions secondaires
-
+""" exercice code ascii """
+import sys
+sys.setrecursionlimit(5000)
 
 def artcode_i(s):
-    """retourne la liste de tuples encodant une chaîne de caractères passée en argument selon un algorithme itératif
+    """retourne la liste de tuples 
 
     Args:
         s (str): la chaîne de caractères à encoder
 
     Returns:
-        list: la liste des tuples (caractère, nombre d'occurences)
-    """
-    
-    # votre code ici
+        list: la liste des tuples (caractère, nombre d'occurences)"""
 
-    return [ ]
+    if not s:
+        return []
+
+    chars = [s[0]]
+    occurrences = [1]
+    k = 1
+
+    while k < len(s):
+        if s[k] == s[k - 1]:
+            occurrences[-1] += 1
+        else:
+            chars.append(s[k])
+            occurrences.append(1)
+        k += 1
+
+    return list(zip(chars, occurrences))
 
 
 def artcode_r(s):
-    """retourne la liste de tuples encodant une chaîne de caractères passée en argument selon un algorithme récursif
+    """Retourne la liste de tuples .
 
     Args:
-        s (str): la chaîne de caractères à encoder
+        s (str): La chaîne de caractères à encoder.
 
     Returns:
-        list: la liste des tuples (caractère, nombre d'occurences)
+        list: La liste des tuples (caractère, nombre d'occurrences).
     """
-    
-    # votre code ici
 
-    # cas de base
+    if not s:
+        return []
+
+    firstchar = s[0]
+    count = 1
+
+    while count < len(s) and s[count] == firstchar:
+        count += 1
+
+    resultat = [(firstchar, count)]
+
+    rest_of_string = s[count:]
+
+    return resultat + artcode_r(rest_of_string)
+
+
     # recherche nombre de caractères identiques au premier
     # appel récursif
 
-    return []
-    
+
 
 #### Fonction principale
 
 
 def main():
+    """ fonction main """
     print(artcode_i('MMMMaaacXolloMM'))
     print(artcode_r('MMMMaaacXolloMM'))
 
